@@ -1,0 +1,12 @@
+FROM msakhawat/mymariadb:centos
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=blog
+
+RUN yum install sqladmin
+
+RUN echo 'testing new build 2'
+COPY ./database .
+
+ADD ./script.sql /docker-entrypoint-initdb.d
+

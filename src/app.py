@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 # todo: move configuration to environment
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@mymariadb/blog'
 db = SQLAlchemy(app)
 
 class BlogPost(db.Model):
