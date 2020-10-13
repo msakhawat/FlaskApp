@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi8
+FROM centos:centos8
 
 RUN yum -y update && yum -y install python3
 
