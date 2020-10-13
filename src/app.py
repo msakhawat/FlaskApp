@@ -7,7 +7,7 @@ from datetime import datetime
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://sa:1234@mariadb/blog'
 # there must be better way.
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{os.getenv('DATABASE_USER', sa)}:{os.getenv('DATABASE_PASSWORD', 1234)}@{os.getenv('DATABASE_INSTANCE_NAME', mariadb)}/{os.getenv('DATABASE_NAME', blog)}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.getenv('DATABASE_USER', 'sa')}:{os.getenv('DATABASE_PASSWORD', '1234')}@{os.getenv('DATABASE_INSTANCE_NAME', 'mariadb')}/{os.getenv('DATABASE_NAME', 'blog')}"
 db = SQLAlchemy(app)
 
 class BlogPost(db.Model):
