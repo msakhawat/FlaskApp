@@ -1,62 +1,59 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  generateName: webapp-name-1-
+  generateName: webapp-name-5b7586d876-
   annotations:
     k8s.v1.cni.cncf.io/networks-status: |-
       [{
           "name": "openshift-sdn",
           "interface": "eth0",
           "ips": [
-              "10.128.2.143"
+              "10.129.9.153"
           ],
           "dns": {},
           "default-route": [
-              "10.128.2.1"
+              "10.129.8.1"
           ]
       }]
     kubernetes.io/limit-ranger: >-
       LimitRanger plugin set: cpu, memory request for container webapp-name;
       cpu, memory limit for container webapp-name
-    openshift.io/deployment-config.latest-version: '1'
-    openshift.io/deployment-config.name: webapp-name
-    openshift.io/deployment.name: webapp-name-1
     openshift.io/scc: restricted
-  selfLink: /api/v1/namespaces/webproject/pods/webapp-name-1-grjht
-  resourceVersion: '289272833'
-  name: webapp-name-1-grjht
-  uid: e6b7016a-d314-4df3-bb0a-ce4383eaf68c
-  creationTimestamp: '2020-10-08T13:25:25Z'
+  selfLink: /api/v1/namespaces/webproject/pods/webapp-name-5b7586d876-kqhcj
+  resourceVersion: '299590388'
+  name: webapp-name-5b7586d876-kqhcj
+  uid: ad50ab8a-4f2b-4645-9738-539b697d79a5
+  creationTimestamp: '2020-10-13T07:25:50Z'
   namespace: webproject
   ownerReferences:
-    - apiVersion: v1
-      kind: ReplicationController
-      name: webapp-name-1
-      uid: b5a3e9b0-7a39-407d-a001-8ed41e0a6681
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: webapp-name-5b7586d876
+      uid: 17dc622a-f6ca-483b-9dca-9e73818eac12
       controller: true
       blockOwnerDeletion: true
   labels:
     app: webapp-name
-    deployment: webapp-name-1
     deploymentconfig: webapp-name
+    pod-template-hash: 5b7586d876
 spec:
   restartPolicy: Always
   serviceAccountName: default
   imagePullSecrets:
-    - name: default-dockercfg-w8h6g
+    - name: default-dockercfg-952d5
   priority: 0
   schedulerName: default-scheduler
   enableServiceLinks: true
   terminationGracePeriodSeconds: 30
-  nodeName: ip-10-0-156-14.us-west-2.compute.internal
+  nodeName: ip-10-0-157-94.us-west-2.compute.internal
   securityContext:
     seLinuxOptions:
-      level: 's0:c79,c59'
-    fsGroup: 1006280000
+      level: 's0:c59,c39'
+    fsGroup: 1003500000
   containers:
     - name: webapp-name
       image: >-
-        image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:d8e7b211926530a360d5e2d5839b1dafb86d42c82c4b9836173185509033419b
+        image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
       resources:
         limits:
           cpu: 500m
@@ -64,24 +61,8 @@ spec:
         requests:
           cpu: 50m
           memory: 256Mi
-        env:
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mariadb
-              key: database-user
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mariadb
-              key: database-password
-        - name: MYSQL_DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: mariadb
-              key: database-name
       volumeMounts:
-        - name: default-token-6fnns
+        - name: default-token-99x9x
           readOnly: true
           mountPath: /var/run/secrets/kubernetes.io/serviceaccount
       terminationMessagePath: /dev/termination-log
@@ -94,12 +75,12 @@ spec:
             - MKNOD
             - SETGID
             - SETUID
-        runAsUser: 1006280000
+        runAsUser: 1003500000
   serviceAccount: default
   volumes:
-    - name: default-token-6fnns
+    - name: default-token-99x9x
       secret:
-        secretName: default-token-6fnns
+        secretName: default-token-99x9x
         defaultMode: 420
   dnsPolicy: ClusterFirst
   tolerations:
@@ -114,3 +95,42 @@ spec:
     - key: node.kubernetes.io/memory-pressure
       operator: Exists
       effect: NoSchedule
+status:
+  phase: Running
+  conditions:
+    - type: Initialized
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2020-10-13T07:25:50Z'
+    - type: Ready
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2020-10-13T07:25:55Z'
+    - type: ContainersReady
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2020-10-13T07:25:55Z'
+    - type: PodScheduled
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2020-10-13T07:25:50Z'
+  hostIP: 10.0.157.94
+  podIP: 10.129.9.153
+  podIPs:
+    - ip: 10.129.9.153
+  startTime: '2020-10-13T07:25:50Z'
+  containerStatuses:
+    - restartCount: 0
+      started: true
+      ready: true
+      name: webapp-name
+      state:
+        running:
+          startedAt: '2020-10-13T07:25:55Z'
+      imageID: >-
+        image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
+      image: >-
+        image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
+      lastState: {}
+      containerID: 'cri-o://6bdf1b6683bf764422761cf167f911740027732d9dacdc7222c58b671e4b7189'
+  qosClass: Burstable

@@ -4,16 +4,16 @@ metadata:
   annotations:
     template.alpha.openshift.io/wait-for-ready: 'true'
   selfLink: /apis/apps.openshift.io/v1/namespaces/webproject/deploymentconfigs/mariadb
-  resourceVersion: '290063462'
+  resourceVersion: '299652936'
   name: mariadb
-  uid: e308d85e-005d-44a1-8bb3-0c0d86f5ed3b
-  creationTimestamp: '2020-10-08T21:25:52Z'
-  generation: 3
+  uid: a2438594-7145-4404-a630-f026dc6f5ac5
+  creationTimestamp: '2020-10-13T07:28:03Z'
+  generation: 2
   namespace: webproject
   labels:
     app.kubernetes.io/part-of: webapp-appname
     template: mariadb-persistent-template
-    template.openshift.io/template-instance-owner: e36dbf8d-864c-430e-bb78-4cf7d09f664e
+    template.openshift.io/template-instance-owner: 0feb8b4a-19a7-4445-be09-9cd222a1a1a2
 spec:
   strategy:
     type: Recreate
@@ -114,26 +114,26 @@ spec:
       securityContext: {}
       schedulerName: default-scheduler
 status:
-  observedGeneration: 3
+  observedGeneration: 2
   details:
-    message: manual change
+    message: config change
     causes:
-      - type: Manual
+      - type: ConfigChange
   availableReplicas: 1
   unavailableReplicas: 0
-  latestVersion: 2
+  latestVersion: 1
   updatedReplicas: 1
   conditions:
     - type: Available
       status: 'True'
-      lastUpdateTime: '2020-10-08T21:28:04Z'
-      lastTransitionTime: '2020-10-08T21:28:04Z'
+      lastUpdateTime: '2020-10-13T07:28:38Z'
+      lastTransitionTime: '2020-10-13T07:28:38Z'
       message: Deployment config has minimum availability.
     - type: Progressing
       status: 'True'
-      lastUpdateTime: '2020-10-08T21:28:05Z'
-      lastTransitionTime: '2020-10-08T21:27:37Z'
+      lastUpdateTime: '2020-10-13T07:28:39Z'
+      lastTransitionTime: '2020-10-13T07:28:09Z'
       reason: NewReplicationControllerAvailable
-      message: replication controller "mariadb-2" successfully rolled out
+      message: replication controller "mariadb-1" successfully rolled out
   replicas: 1
   readyReplicas: 1

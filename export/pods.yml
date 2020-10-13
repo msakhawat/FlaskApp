@@ -1,0 +1,808 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.v1.cni.cncf.io/networks-status: ""
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for
+        container deployment; cpu, memory limit for container deployment'
+      openshift.io/deployment-config.name: mariadb
+      openshift.io/deployment.name: mariadb-1
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-10-13T07:28:05Z
+    labels:
+      openshift.io/deployer-pod-for.name: mariadb-1
+    name: mariadb-1-deploy
+    namespace: webproject
+    ownerReferences:
+    - apiVersion: v1
+      kind: ReplicationController
+      name: mariadb-1
+      uid: 2b097c3c-fb31-4404-bfdc-beec0f7cfff5
+    resourceVersion: "299594932"
+    selfLink: /api/v1/namespaces/webproject/pods/mariadb-1-deploy
+    uid: 90a40e9e-7a65-4a0f-bfc0-4d8e0edaa7a6
+  spec:
+    activeDeadlineSeconds: 21600
+    containers:
+    - env:
+      - name: OPENSHIFT_DEPLOYMENT_NAME
+        value: mariadb-1
+      - name: OPENSHIFT_DEPLOYMENT_NAMESPACE
+        value: webproject
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:799d387b192b5e0b8567933899d7f753d5f2a54f2afd4bdb8f7264bb687d9165
+      imagePullPolicy: IfNotPresent
+      name: deployment
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1536Mi
+        requests:
+          cpu: 50m
+          memory: 256Mi
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1003500000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: deployer-token-bc7tq
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: deployer-dockercfg-gxswn
+    nodeName: ip-10-0-157-94.us-west-2.compute.internal
+    priority: 0
+    restartPolicy: Never
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1003500000
+      seLinuxOptions:
+        level: s0:c59,c39
+    serviceAccount: deployer
+    serviceAccountName: deployer
+    shareProcessNamespace: false
+    terminationGracePeriodSeconds: 10
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: deployer-token-bc7tq
+      secret:
+        defaultMode: 420
+        secretName: deployer-token-bc7tq
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:05Z
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:39Z
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:39Z
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:05Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://222ddbc9071df9e620a4ef27a5e91708e2b536278b989582909b4f25fe555e20
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:799d387b192b5e0b8567933899d7f753d5f2a54f2afd4bdb8f7264bb687d9165
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:799d387b192b5e0b8567933899d7f753d5f2a54f2afd4bdb8f7264bb687d9165
+      lastState: {}
+      name: deployment
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: cri-o://222ddbc9071df9e620a4ef27a5e91708e2b536278b989582909b4f25fe555e20
+          exitCode: 0
+          finishedAt: 2020-10-13T07:28:38Z
+          reason: Completed
+          startedAt: 2020-10-13T07:28:08Z
+    hostIP: 10.0.157.94
+    phase: Succeeded
+    podIP: 10.129.9.161
+    podIPs:
+    - ip: 10.129.9.161
+    qosClass: Burstable
+    startTime: 2020-10-13T07:28:05Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.v1.cni.cncf.io/networks-status: |-
+        [{
+            "name": "openshift-sdn",
+            "interface": "eth0",
+            "ips": [
+                "10.129.9.162"
+            ],
+            "dns": {},
+            "default-route": [
+                "10.129.8.1"
+            ]
+        }]
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+        mariadb; cpu limit for container mariadb'
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: mariadb
+      openshift.io/deployment.name: mariadb-1
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-10-13T07:28:08Z
+    generateName: mariadb-1-
+    labels:
+      deployment: mariadb-1
+      deploymentconfig: mariadb
+      name: mariadb
+    name: mariadb-1-sts66
+    namespace: webproject
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: mariadb-1
+      uid: 2b097c3c-fb31-4404-bfdc-beec0f7cfff5
+    resourceVersion: "299594760"
+    selfLink: /api/v1/namespaces/webproject/pods/mariadb-1-sts66
+    uid: baaeaa4f-b515-45e9-b755-8613056a4dba
+  spec:
+    containers:
+    - env:
+      - name: MYSQL_USER
+        valueFrom:
+          secretKeyRef:
+            key: database-user
+            name: mariadb
+      - name: MYSQL_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: database-password
+            name: mariadb
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            key: database-root-password
+            name: mariadb
+      - name: MYSQL_DATABASE
+        valueFrom:
+          secretKeyRef:
+            key: database-name
+            name: mariadb
+      image: image-registry.openshift-image-registry.svc:5000/openshift/mariadb@sha256:ad16d811025295daba76402740ca0d126983161406b0901b623a7112b8997601
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        successThreshold: 1
+        tcpSocket:
+          port: 3306
+        timeoutSeconds: 1
+      name: mariadb
+      ports:
+      - containerPort: 3306
+        protocol: TCP
+      readinessProbe:
+        exec:
+          command:
+          - /bin/sh
+          - -i
+          - -c
+          - MYSQL_PWD="$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE
+            -e 'SELECT 1'
+        failureThreshold: 3
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 50m
+          memory: 512Mi
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1003500000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/lib/mysql/data
+        name: mariadb-data
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-99x9x
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: default-dockercfg-952d5
+    nodeName: ip-10-0-157-94.us-west-2.compute.internal
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1003500000
+      seLinuxOptions:
+        level: s0:c59,c39
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: mariadb-data
+      persistentVolumeClaim:
+        claimName: mariadb
+    - name: default-token-99x9x
+      secret:
+        defaultMode: 420
+        secretName: default-token-99x9x
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:08Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:38Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:38Z
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:28:08Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://fdf511cc1308af493ce6dee2e0b704ea4481a8789092aeb6b56b9018c9e13859
+      image: image-registry.openshift-image-registry.svc:5000/openshift/mariadb@sha256:ad16d811025295daba76402740ca0d126983161406b0901b623a7112b8997601
+      imageID: image-registry.openshift-image-registry.svc:5000/openshift/mariadb@sha256:ad16d811025295daba76402740ca0d126983161406b0901b623a7112b8997601
+      lastState: {}
+      name: mariadb
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: 2020-10-13T07:28:22Z
+    hostIP: 10.0.157.94
+    phase: Running
+    podIP: 10.129.9.162
+    podIPs:
+    - ip: 10.129.9.162
+    qosClass: Burstable
+    startTime: 2020-10-13T07:28:08Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.v1.cni.cncf.io/networks-status: ""
+      openshift.io/build.name: webapp-name-1
+      openshift.io/scc: privileged
+    creationTimestamp: 2020-10-13T07:24:53Z
+    labels:
+      openshift.io/build.name: webapp-name-1
+    name: webapp-name-1-build
+    namespace: webproject
+    ownerReferences:
+    - apiVersion: build.openshift.io/v1
+      controller: true
+      kind: Build
+      name: webapp-name-1
+      uid: 51e7d656-35d7-4680-bdc1-500efbd4619d
+    resourceVersion: "299590354"
+    selfLink: /api/v1/namespaces/webproject/pods/webapp-name-1-build
+    uid: f612eacc-1a74-4fa1-ac7d-238bf089cadf
+  spec:
+    activeDeadlineSeconds: 604800
+    containers:
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-docker-build
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"webapp-name-1","namespace":"webproject","selfLink":"/apis/build.openshift.io/v1/namespaces/webproject/builds/webapp-name-1","uid":"51e7d656-35d7-4680-bdc1-500efbd4619d","resourceVersion":"299588732","creationTimestamp":"2020-10-13T07:24:52Z","labels":{"app":"webapp-name","app.kubernetes.io/component":"webapp-name","app.kubernetes.io/instance":"webapp-name","app.kubernetes.io/part-of":"webapp-appname","buildconfig":"webapp-name","openshift.io/build-config.name":"webapp-name","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"webapp-name","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"webapp-name","uid":"b24ed816-7b98-4391-bac3-f615e9a6830f","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/msakhawat/FlaskApp.git"},"contextDir":"/"},"strategy":{"type":"Docker","dockerStrategy":{"pullSecret":{"name":"builder-dockercfg-w59q8"},"dockerfilePath":"Dockerfile"}},"output":{"to":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/webproject/webapp-name:latest"},"pushSecret":{"name":"builder-dockercfg-w59q8"}},"resources":{"limits":{"cpu":"1","memory":"3Gi"},"requests":{"cpu":"1","memory":"2Gi"}},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Build configuration change"}]},"status":{"phase":"New","outputDockerImageReference":"image-registry.openshift-image-registry.svc:5000/webproject/webapp-name:latest","config":{"kind":"BuildConfig","namespace":"webproject","name":"webapp-name"},"output":{},"conditions":[{"type":"New","status":"True","lastUpdateTime":"2020-10-13T07:24:52Z","lastTransitionTime":"2020-10-13T07:24:52Z"}]}}
+      - name: LANG
+        value: en_US.utf8
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/msakhawat/FlaskApp.git
+      - name: SOURCE_URI
+        value: https://github.com/msakhawat/FlaskApp.git
+      - name: SOURCE_CONTEXT_DIR
+        value: /
+      - name: PUSH_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/push
+      - name: PULL_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/pull
+      - name: BUILD_REGISTRIES_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.conf
+      - name: BUILD_REGISTRIES_DIR_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.d
+      - name: BUILD_SIGNATURE_POLICY_PATH
+        value: /var/run/configs/openshift.io/build-system/policy.json
+      - name: BUILD_STORAGE_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/storage.conf
+      - name: BUILD_STORAGE_DRIVER
+        value: overlay
+      - name: BUILD_ISOLATION
+        value: chroot
+      - name: BUILD_BLOBCACHE_DIR
+        value: /var/cache/blobs
+      - name: HTTP_PROXY
+      - name: HTTPS_PROXY
+      - name: NO_PROXY
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      imagePullPolicy: IfNotPresent
+      name: docker-build
+      resources:
+        limits:
+          cpu: "1"
+          memory: 3Gi
+        requests:
+          cpu: "1"
+          memory: 2Gi
+      securityContext:
+        privileged: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/lib/containers/cache
+        name: buildcachedir
+      - mountPath: /var/run/secrets/openshift.io/push
+        name: builder-dockercfg-w59q8-push
+        readOnly: true
+      - mountPath: /var/run/secrets/openshift.io/pull
+        name: builder-dockercfg-w59q8-pull
+        readOnly: true
+      - mountPath: /var/run/configs/openshift.io/build-system
+        name: build-system-configs
+        readOnly: true
+      - mountPath: /var/run/configs/openshift.io/certs
+        name: build-ca-bundles
+      - mountPath: /etc/pki/ca-trust/extracted/pem
+        name: build-proxy-ca-bundles
+      - mountPath: /var/lib/containers/storage
+        name: container-storage-root
+      - mountPath: /var/cache/blobs
+        name: build-blob-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-4w6db
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: builder-dockercfg-w59q8
+    initContainers:
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-git-clone
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"webapp-name-1","namespace":"webproject","selfLink":"/apis/build.openshift.io/v1/namespaces/webproject/builds/webapp-name-1","uid":"51e7d656-35d7-4680-bdc1-500efbd4619d","resourceVersion":"299588732","creationTimestamp":"2020-10-13T07:24:52Z","labels":{"app":"webapp-name","app.kubernetes.io/component":"webapp-name","app.kubernetes.io/instance":"webapp-name","app.kubernetes.io/part-of":"webapp-appname","buildconfig":"webapp-name","openshift.io/build-config.name":"webapp-name","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"webapp-name","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"webapp-name","uid":"b24ed816-7b98-4391-bac3-f615e9a6830f","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/msakhawat/FlaskApp.git"},"contextDir":"/"},"strategy":{"type":"Docker","dockerStrategy":{"pullSecret":{"name":"builder-dockercfg-w59q8"},"dockerfilePath":"Dockerfile"}},"output":{"to":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/webproject/webapp-name:latest"},"pushSecret":{"name":"builder-dockercfg-w59q8"}},"resources":{"limits":{"cpu":"1","memory":"3Gi"},"requests":{"cpu":"1","memory":"2Gi"}},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Build configuration change"}]},"status":{"phase":"New","outputDockerImageReference":"image-registry.openshift-image-registry.svc:5000/webproject/webapp-name:latest","config":{"kind":"BuildConfig","namespace":"webproject","name":"webapp-name"},"output":{},"conditions":[{"type":"New","status":"True","lastUpdateTime":"2020-10-13T07:24:52Z","lastTransitionTime":"2020-10-13T07:24:52Z"}]}}
+      - name: LANG
+        value: en_US.utf8
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/msakhawat/FlaskApp.git
+      - name: SOURCE_URI
+        value: https://github.com/msakhawat/FlaskApp.git
+      - name: SOURCE_CONTEXT_DIR
+        value: /
+      - name: BUILD_REGISTRIES_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.conf
+      - name: BUILD_REGISTRIES_DIR_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.d
+      - name: BUILD_SIGNATURE_POLICY_PATH
+        value: /var/run/configs/openshift.io/build-system/policy.json
+      - name: BUILD_STORAGE_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/storage.conf
+      - name: BUILD_BLOBCACHE_DIR
+        value: /var/cache/blobs
+      - name: HTTP_PROXY
+      - name: HTTPS_PROXY
+      - name: NO_PROXY
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      imagePullPolicy: IfNotPresent
+      name: git-clone
+      resources:
+        limits:
+          cpu: "1"
+          memory: 3Gi
+        requests:
+          cpu: "1"
+          memory: 2Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/configs/openshift.io/build-system
+        name: build-system-configs
+        readOnly: true
+      - mountPath: /var/run/configs/openshift.io/certs
+        name: build-ca-bundles
+      - mountPath: /etc/pki/ca-trust/extracted/pem
+        name: build-proxy-ca-bundles
+      - mountPath: /var/cache/blobs
+        name: build-blob-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-4w6db
+        readOnly: true
+    - args:
+      - --loglevel=0
+      command:
+      - openshift-manage-dockerfile
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"build.openshift.io/v1","metadata":{"name":"webapp-name-1","namespace":"webproject","selfLink":"/apis/build.openshift.io/v1/namespaces/webproject/builds/webapp-name-1","uid":"51e7d656-35d7-4680-bdc1-500efbd4619d","resourceVersion":"299588732","creationTimestamp":"2020-10-13T07:24:52Z","labels":{"app":"webapp-name","app.kubernetes.io/component":"webapp-name","app.kubernetes.io/instance":"webapp-name","app.kubernetes.io/part-of":"webapp-appname","buildconfig":"webapp-name","openshift.io/build-config.name":"webapp-name","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"webapp-name","openshift.io/build.number":"1"},"ownerReferences":[{"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","name":"webapp-name","uid":"b24ed816-7b98-4391-bac3-f615e9a6830f","controller":true}]},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/msakhawat/FlaskApp.git"},"contextDir":"/"},"strategy":{"type":"Docker","dockerStrategy":{"pullSecret":{"name":"builder-dockercfg-w59q8"},"dockerfilePath":"Dockerfile"}},"output":{"to":{"kind":"DockerImage","name":"image-registry.openshift-image-registry.svc:5000/webproject/webapp-name:latest"},"pushSecret":{"name":"builder-dockercfg-w59q8"}},"resources":{"limits":{"cpu":"1","memory":"3Gi"},"requests":{"cpu":"1","memory":"2Gi"}},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Build configuration change"}]},"status":{"phase":"New","outputDockerImageReference":"image-registry.openshift-image-registry.svc:5000/webproject/webapp-name:latest","config":{"kind":"BuildConfig","namespace":"webproject","name":"webapp-name"},"output":{},"conditions":[{"type":"New","status":"True","lastUpdateTime":"2020-10-13T07:24:52Z","lastTransitionTime":"2020-10-13T07:24:52Z"}]}}
+      - name: LANG
+        value: en_US.utf8
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/msakhawat/FlaskApp.git
+      - name: SOURCE_URI
+        value: https://github.com/msakhawat/FlaskApp.git
+      - name: SOURCE_CONTEXT_DIR
+        value: /
+      - name: BUILD_REGISTRIES_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.conf
+      - name: BUILD_REGISTRIES_DIR_PATH
+        value: /var/run/configs/openshift.io/build-system/registries.d
+      - name: BUILD_SIGNATURE_POLICY_PATH
+        value: /var/run/configs/openshift.io/build-system/policy.json
+      - name: BUILD_STORAGE_CONF_PATH
+        value: /var/run/configs/openshift.io/build-system/storage.conf
+      - name: BUILD_BLOBCACHE_DIR
+        value: /var/cache/blobs
+      - name: HTTP_PROXY
+      - name: HTTPS_PROXY
+      - name: NO_PROXY
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      imagePullPolicy: IfNotPresent
+      name: manage-dockerfile
+      resources:
+        limits:
+          cpu: "1"
+          memory: 3Gi
+        requests:
+          cpu: "1"
+          memory: 2Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: FallbackToLogsOnError
+      volumeMounts:
+      - mountPath: /tmp/build
+        name: buildworkdir
+      - mountPath: /var/run/configs/openshift.io/build-system
+        name: build-system-configs
+        readOnly: true
+      - mountPath: /var/run/configs/openshift.io/certs
+        name: build-ca-bundles
+      - mountPath: /etc/pki/ca-trust/extracted/pem
+        name: build-proxy-ca-bundles
+      - mountPath: /var/cache/blobs
+        name: build-blob-cache
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-4w6db
+        readOnly: true
+    nodeName: ip-10-0-157-94.us-west-2.compute.internal
+    nodeSelector:
+      kubernetes.io/os: linux
+    priority: 0
+    restartPolicy: Never
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: builder
+    serviceAccountName: builder
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - hostPath:
+        path: /var/lib/containers/cache
+        type: ""
+      name: buildcachedir
+    - emptyDir: {}
+      name: buildworkdir
+    - name: builder-dockercfg-w59q8-push
+      secret:
+        defaultMode: 384
+        secretName: builder-dockercfg-w59q8
+    - name: builder-dockercfg-w59q8-pull
+      secret:
+        defaultMode: 384
+        secretName: builder-dockercfg-w59q8
+    - configMap:
+        defaultMode: 420
+        name: webapp-name-1-sys-config
+      name: build-system-configs
+    - configMap:
+        defaultMode: 420
+        items:
+        - key: service-ca.crt
+          path: certs.d/image-registry.openshift-image-registry.svc:5000/ca.crt
+        name: webapp-name-1-ca
+      name: build-ca-bundles
+    - configMap:
+        defaultMode: 420
+        items:
+        - key: ca-bundle.crt
+          path: tls-ca-bundle.pem
+        name: webapp-name-1-global-ca
+      name: build-proxy-ca-bundles
+    - emptyDir: {}
+      name: container-storage-root
+    - emptyDir: {}
+      name: build-blob-cache
+    - name: builder-token-4w6db
+      secret:
+        defaultMode: 420
+        secretName: builder-token-4w6db
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:04Z
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:50Z
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:50Z
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:24:53Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://11a050bce1b306192be206d3a5afd6bb3ce3b24d2df2d217db72430034f75523
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      lastState: {}
+      name: docker-build
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: cri-o://11a050bce1b306192be206d3a5afd6bb3ce3b24d2df2d217db72430034f75523
+          exitCode: 0
+          finishedAt: 2020-10-13T07:25:50Z
+          reason: Completed
+          startedAt: 2020-10-13T07:25:04Z
+    hostIP: 10.0.157.94
+    initContainerStatuses:
+    - containerID: cri-o://9ca24224634b7263dc747191564c42ddc5269cf81a927537333588e15a4ce101
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      lastState: {}
+      name: git-clone
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: cri-o://9ca24224634b7263dc747191564c42ddc5269cf81a927537333588e15a4ce101
+          exitCode: 0
+          finishedAt: 2020-10-13T07:25:02Z
+          reason: Completed
+          startedAt: 2020-10-13T07:24:55Z
+    - containerID: cri-o://8faa139ab2e85988b9aeff29ff31dd362bf03884872b8d23c4c98801ebe1227b
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      imageID: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:a4a5f053eadef282c1513d5a3c319195e81efab26cdc0108a2165b56d24dfa2c
+      lastState: {}
+      name: manage-dockerfile
+      ready: true
+      restartCount: 0
+      state:
+        terminated:
+          containerID: cri-o://8faa139ab2e85988b9aeff29ff31dd362bf03884872b8d23c4c98801ebe1227b
+          exitCode: 0
+          finishedAt: 2020-10-13T07:25:03Z
+          reason: Completed
+          startedAt: 2020-10-13T07:25:03Z
+    phase: Succeeded
+    podIP: 10.129.9.152
+    podIPs:
+    - ip: 10.129.9.152
+    qosClass: Burstable
+    startTime: 2020-10-13T07:24:53Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      k8s.v1.cni.cncf.io/networks-status: |-
+        [{
+            "name": "openshift-sdn",
+            "interface": "eth0",
+            "ips": [
+                "10.129.9.153"
+            ],
+            "dns": {},
+            "default-route": [
+                "10.129.8.1"
+            ]
+        }]
+      kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for
+        container webapp-name; cpu, memory limit for container webapp-name'
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-10-13T07:25:50Z
+    generateName: webapp-name-5b7586d876-
+    labels:
+      app: webapp-name
+      deploymentconfig: webapp-name
+      pod-template-hash: 5b7586d876
+    name: webapp-name-5b7586d876-kqhcj
+    namespace: webproject
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: webapp-name-5b7586d876
+      uid: 17dc622a-f6ca-483b-9dca-9e73818eac12
+    resourceVersion: "299590388"
+    selfLink: /api/v1/namespaces/webproject/pods/webapp-name-5b7586d876-kqhcj
+    uid: ad50ab8a-4f2b-4645-9738-539b697d79a5
+  spec:
+    containers:
+    - image: image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
+      imagePullPolicy: Always
+      name: webapp-name
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1536Mi
+        requests:
+          cpu: 50m
+          memory: 256Mi
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1003500000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-99x9x
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    imagePullSecrets:
+    - name: default-dockercfg-952d5
+    nodeName: ip-10-0-157-94.us-west-2.compute.internal
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1003500000
+      seLinuxOptions:
+        level: s0:c59,c39
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: default-token-99x9x
+      secret:
+        defaultMode: 420
+        secretName: default-token-99x9x
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:50Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:55Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:55Z
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-10-13T07:25:50Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: cri-o://6bdf1b6683bf764422761cf167f911740027732d9dacdc7222c58b671e4b7189
+      image: image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
+      imageID: image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
+      lastState: {}
+      name: webapp-name
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: 2020-10-13T07:25:55Z
+    hostIP: 10.0.157.94
+    phase: Running
+    podIP: 10.129.9.153
+    podIPs:
+    - ip: 10.129.9.153
+    qosClass: Burstable
+    startTime: 2020-10-13T07:25:50Z
+kind: List
+metadata: {}
+resourceVersion: ""
+selfLink: ""

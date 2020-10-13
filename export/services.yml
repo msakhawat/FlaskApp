@@ -1,0 +1,65 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      template.openshift.io/expose-uri: mysql://{.spec.clusterIP}:{.spec.ports[?(.name=="mariadb")].port}
+    creationTimestamp: 2020-10-13T07:28:03Z
+    labels:
+      template: mariadb-persistent-template
+      template.openshift.io/template-instance-owner: 0feb8b4a-19a7-4445-be09-9cd222a1a1a2
+    name: mariadb
+    namespace: webproject
+    resourceVersion: "299593751"
+    selfLink: /api/v1/namespaces/webproject/services/mariadb
+    uid: b8515d23-e064-4e93-9877-497713f48cf5
+  spec:
+    clusterIP: 172.30.50.240
+    ports:
+    - name: mariadb
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      name: mariadb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      app.openshift.io/vcs-ref: master
+      app.openshift.io/vcs-uri: https://github.com/msakhawat/FlaskApp.git
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: 2020-10-13T07:24:52Z
+    labels:
+      app: webapp-name
+      app.kubernetes.io/component: webapp-name
+      app.kubernetes.io/instance: webapp-name
+      app.kubernetes.io/part-of: webapp-appname
+    name: webapp-name
+    namespace: webproject
+    resourceVersion: "299588704"
+    selfLink: /api/v1/namespaces/webproject/services/webapp-name
+    uid: 7565f2e2-ae39-4e5f-88af-98ea0ee9e7b6
+  spec:
+    clusterIP: 172.30.82.28
+    ports:
+    - name: 5000-tcp
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+    selector:
+      app: webapp-name
+      deploymentconfig: webapp-name
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
+resourceVersion: ""
+selfLink: ""

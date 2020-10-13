@@ -1,0 +1,64 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/vcs-ref: master
+    app.openshift.io/vcs-uri: 'https://github.com/msakhawat/FlaskApp.git'
+    deployment.kubernetes.io/desired-replicas: '1'
+    deployment.kubernetes.io/max-replicas: '2'
+    deployment.kubernetes.io/revision: '2'
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"webapp-name:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"webapp-name\")].image","pause":"false"}]
+    openshift.io/generated-by: OpenShiftWebConsole
+  selfLink: /apis/apps/v1/namespaces/webproject/replicasets/webapp-name-5b7586d876
+  resourceVersion: '299590389'
+  name: webapp-name-5b7586d876
+  uid: 17dc622a-f6ca-483b-9dca-9e73818eac12
+  creationTimestamp: '2020-10-13T07:25:50Z'
+  generation: 1
+  namespace: webproject
+  ownerReferences:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: webapp-name
+      uid: 35bd0bdc-fd42-4c5c-829f-c95258fec5c5
+      controller: true
+      blockOwnerDeletion: true
+  labels:
+    app: webapp-name
+    deploymentconfig: webapp-name
+    pod-template-hash: 5b7586d876
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp-name
+      pod-template-hash: 5b7586d876
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: webapp-name
+        deploymentconfig: webapp-name
+        pod-template-hash: 5b7586d876
+    spec:
+      containers:
+        - name: webapp-name
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:616a75aca2298f3361558b4d8708093716e8289f3d4cfd542cdd9c5c3ef745c9
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+status:
+  replicas: 1
+  fullyLabeledReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  observedGeneration: 1
