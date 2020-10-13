@@ -1,5 +1,5 @@
 # registry.redhat.io/rhel8/mariadb-103
-FROM registry.redhat.io/ubi8/s2i-core:rhel8.2
+FROM registry.access.redhat.com/ubi8/s2i-core:rhel8.2
 
 # MariaDB image for OpenShift.
 #
