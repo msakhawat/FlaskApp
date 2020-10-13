@@ -1,0 +1,33 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    pv.kubernetes.io/bind-completed: 'yes'
+    pv.kubernetes.io/bound-by-controller: 'yes'
+    volume.beta.kubernetes.io/storage-provisioner: openshift-storage.cephfs.csi.ceph.com
+  selfLink: /api/v1/namespaces/webproject/persistentvolumeclaims/mariadb
+  resourceVersion: '290044223'
+  name: mariadb
+  uid: f5595331-fab3-45af-beb9-d9eb9af44995
+  creationTimestamp: '2020-10-08T21:25:52Z'
+  namespace: webproject
+  finalizers:
+    - kubernetes.io/pvc-protection
+  labels:
+    template: mariadb-persistent-template
+    template.openshift.io/template-instance-owner: e36dbf8d-864c-430e-bb78-4cf7d09f664e
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: pvc-f5595331-fab3-45af-beb9-d9eb9af44995
+  storageClassName: ocs-storagecluster-cephfs
+  volumeMode: Filesystem
+status:
+  phase: Bound
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi

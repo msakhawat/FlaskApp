@@ -1,0 +1,94 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: master
+    app.openshift.io/vcs-uri: 'https://github.com/msakhawat/FlaskApp'
+    openshift.io/generated-by: OpenShiftWebConsole
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/webproject/deploymentconfigs/webapp-name
+  resourceVersion: '289272844'
+  name: webapp-name
+  uid: 560479e1-202d-4da4-bd72-b387a73dc5f5
+  creationTimestamp: '2020-10-08T13:24:08Z'
+  generation: 2
+  namespace: webproject
+  labels:
+    app: webapp-name
+    app.kubernetes.io/component: webapp-name
+    app.kubernetes.io/instance: webapp-name
+    app.kubernetes.io/part-of: webapp-appname
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - webapp-name
+        from:
+          kind: ImageStreamTag
+          namespace: webproject
+          name: 'webapp-name:latest'
+        lastTriggeredImage: >-
+          image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:d8e7b211926530a360d5e2d5839b1dafb86d42c82c4b9836173185509033419b
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: webapp-name
+    deploymentconfig: webapp-name
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: webapp-name
+        deploymentconfig: webapp-name
+    spec:
+      containers:
+        - name: webapp-name
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/webproject/webapp-name@sha256:d8e7b211926530a360d5e2d5839b1dafb86d42c82c4b9836173185509033419b
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+status:
+  observedGeneration: 2
+  details:
+    message: config change
+    causes:
+      - type: ConfigChange
+  availableReplicas: 1
+  unavailableReplicas: 0
+  latestVersion: 1
+  updatedReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2020-10-08T13:25:34Z'
+      lastTransitionTime: '2020-10-08T13:25:34Z'
+      message: Deployment config has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2020-10-08T13:25:34Z'
+      lastTransitionTime: '2020-10-08T13:25:26Z'
+      reason: NewReplicationControllerAvailable
+      message: replication controller "webapp-name-1" successfully rolled out
+  replicas: 1
+  readyReplicas: 1

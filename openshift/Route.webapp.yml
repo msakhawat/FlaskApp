@@ -1,0 +1,35 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: webapp-name
+  namespace: webproject
+  selfLink: /apis/route.openshift.io/v1/namespaces/webproject/routes/webapp-name
+  uid: 71cb3cca-13cc-4bdc-b046-df7e80f45e0e
+  resourceVersion: '289270357'
+  creationTimestamp: '2020-10-08T13:24:08Z'
+  labels:
+    app: webapp-name
+    app.kubernetes.io/component: webapp-name
+    app.kubernetes.io/instance: webapp-name
+    app.kubernetes.io/part-of: webapp-appname
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  host: webapp-name-webproject.apps.shared-na4.na4.openshift.opentlc.com
+  to:
+    kind: Service
+    name: webapp-name
+    weight: 100
+  port:
+    targetPort: 5000-tcp
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: webapp-name-webproject.apps.shared-na4.na4.openshift.opentlc.com
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2020-10-08T13:24:08Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: apps.shared-na4.na4.openshift.opentlc.com

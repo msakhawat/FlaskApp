@@ -5,7 +5,7 @@ import pymysql
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:root@localhost/blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://sa:1234@mariadb/blog'
 # there must be better way.
 # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{os.getenv('DATABASE_USER', test)}:{os.getenv('DATABASE_PASSWORD', test)}@{os.getenv('DATABASE_INSTANCE_NAME', mymariadb)}/{os.getenv('DATABASE_NAME', blog)}'
 db = SQLAlchemy(app)

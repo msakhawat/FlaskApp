@@ -1,0 +1,152 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  generateName: mariadb-2-
+  annotations:
+    k8s.v1.cni.cncf.io/networks-status: |-
+      [{
+          "name": "openshift-sdn",
+          "interface": "eth0",
+          "ips": [
+              "10.131.1.14"
+          ],
+          "dns": {},
+          "default-route": [
+              "10.131.0.1"
+          ]
+      }]
+    kubernetes.io/limit-ranger: >-
+      LimitRanger plugin set: cpu request for container mariadb; cpu limit for
+      container mariadb
+    openshift.io/deployment-config.latest-version: '2'
+    openshift.io/deployment-config.name: mariadb
+    openshift.io/deployment.name: mariadb-2
+    openshift.io/scc: restricted
+  selfLink: /api/v1/namespaces/webproject/pods/mariadb-2-zz5d8
+  resourceVersion: '290047810'
+  name: mariadb-2-zz5d8
+  uid: ca323583-3376-4476-a832-f8a03c7d3eff
+  creationTimestamp: '2020-10-08T21:27:37Z'
+  namespace: webproject
+  ownerReferences:
+    - apiVersion: v1
+      kind: ReplicationController
+      name: mariadb-2
+      uid: 0a4d408b-27a5-4cbe-aa01-350cc1b4cc7b
+      controller: true
+      blockOwnerDeletion: true
+  labels:
+    deployment: mariadb-2
+    deploymentconfig: mariadb
+    name: mariadb
+spec:
+  restartPolicy: Always
+  serviceAccountName: default
+  imagePullSecrets:
+    - name: default-dockercfg-w8h6g
+  priority: 0
+  schedulerName: default-scheduler
+  enableServiceLinks: true
+  terminationGracePeriodSeconds: 30
+  nodeName: ip-10-0-129-168.us-west-2.compute.internal
+  securityContext:
+    seLinuxOptions:
+      level: 's0:c79,c59'
+    fsGroup: 1006280000
+  containers:
+    - resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 50m
+          memory: 512Mi
+      readinessProbe:
+        exec:
+          command:
+            - /bin/sh
+            - '-i'
+            - '-c'
+            - >-
+              MYSQL_PWD="$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u $MYSQL_USER -D
+              $MYSQL_DATABASE -e 'SELECT 1'
+        initialDelaySeconds: 5
+        timeoutSeconds: 1
+        periodSeconds: 10
+        successThreshold: 1
+        failureThreshold: 3
+      terminationMessagePath: /dev/termination-log
+      name: mariadb
+      livenessProbe:
+        tcpSocket:
+          port: 3306
+        initialDelaySeconds: 30
+        timeoutSeconds: 1
+        periodSeconds: 10
+        successThreshold: 1
+        failureThreshold: 3
+      env:
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: database-user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: database-password
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: database-root-password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: database-name
+      securityContext:
+        capabilities:
+          drop:
+            - KILL
+            - MKNOD
+            - SETGID
+            - SETUID
+        runAsUser: 1006280000
+      ports:
+        - containerPort: 3306
+          protocol: TCP
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - name: mariadb-data
+          mountPath: /var/lib/mysql/data
+        - name: default-token-6fnns
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      terminationMessagePolicy: File
+      image: >-
+        image-registry.openshift-image-registry.svc:5000/openshift/mariadb@sha256:ad16d811025295daba76402740ca0d126983161406b0901b623a7112b8997601
+  serviceAccount: default
+  volumes:
+    - name: mariadb-data
+      persistentVolumeClaim:
+        claimName: mariadb
+    - name: default-token-6fnns
+      secret:
+        secretName: default-token-6fnns
+        defaultMode: 420
+  dnsPolicy: ClusterFirst
+  tolerations:
+    - key: node.kubernetes.io/not-ready
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/unreachable
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/memory-pressure
+      operator: Exists
+      effect: NoSchedule
+      

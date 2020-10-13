@@ -1,0 +1,139 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    template.alpha.openshift.io/wait-for-ready: 'true'
+  selfLink: /apis/apps.openshift.io/v1/namespaces/webproject/deploymentconfigs/mariadb
+  resourceVersion: '290063462'
+  name: mariadb
+  uid: e308d85e-005d-44a1-8bb3-0c0d86f5ed3b
+  creationTimestamp: '2020-10-08T21:25:52Z'
+  generation: 3
+  namespace: webproject
+  labels:
+    app.kubernetes.io/part-of: webapp-appname
+    template: mariadb-persistent-template
+    template.openshift.io/template-instance-owner: e36dbf8d-864c-430e-bb78-4cf7d09f664e
+spec:
+  strategy:
+    type: Recreate
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - mariadb
+        from:
+          kind: ImageStreamTag
+          namespace: openshift
+          name: 'mariadb:10.2'
+        lastTriggeredImage: >-
+          image-registry.openshift-image-registry.svc:5000/openshift/mariadb@sha256:ad16d811025295daba76402740ca0d126983161406b0901b623a7112b8997601
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    name: mariadb
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: mariadb
+    spec:
+      volumes:
+        - name: mariadb-data
+          persistentVolumeClaim:
+            claimName: mariadb
+      containers:
+        - resources:
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - '-i'
+                - '-c'
+                - >-
+                  MYSQL_PWD="$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u $MYSQL_USER
+                  -D $MYSQL_DATABASE -e 'SELECT 1'
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: mariadb
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: database-user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: database-password
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: database-root-password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: database-name
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: mariadb-data
+              mountPath: /var/lib/mysql/data
+          terminationMessagePolicy: File
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/mariadb@sha256:ad16d811025295daba76402740ca0d126983161406b0901b623a7112b8997601
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+status:
+  observedGeneration: 3
+  details:
+    message: manual change
+    causes:
+      - type: Manual
+  availableReplicas: 1
+  unavailableReplicas: 0
+  latestVersion: 2
+  updatedReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2020-10-08T21:28:04Z'
+      lastTransitionTime: '2020-10-08T21:28:04Z'
+      message: Deployment config has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2020-10-08T21:28:05Z'
+      lastTransitionTime: '2020-10-08T21:27:37Z'
+      reason: NewReplicationControllerAvailable
+      message: replication controller "mariadb-2" successfully rolled out
+  replicas: 1
+  readyReplicas: 1
