@@ -1,0 +1,35 @@
+
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: webapp
+  name: webapp
+  namespace: webproject
+spec:
+  runPolicy: Serial
+  failedBuildsHistoryLimit: 5
+  successfulBuildsHistoryLimit: 5
+  output:
+    to:
+      kind: ImageStreamTag
+      name: webapp:latest
+  source:
+    type: Git
+    contextDir: /
+    git:
+      uri: https://github.com/msakhawat/FlaskApp.git
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  triggers:
+  - type: Generic
+    generic:
+      secretReference:
+        name: git-secret
+  - type: GitHub
+    github:
+      secretReference:
+        name: git-secret
+  - type: ConfigChange
