@@ -1,11 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: webapp-deployment
   namespace: webproject
   labels:
     app: webapp
-    deploymentconfig: webapp
 spec:
   replicas: 1
   selector:
@@ -18,10 +17,11 @@ spec:
       maxUnavailable: 25%
     type: RollingUpdate
   template:
+    name: webapp
+    namespace: webproject
     metadata:
       labels:
         app: webapp
-        deploymentconfig: webapp
     spec:
       containers:
       - name: webapp
@@ -58,38 +58,5 @@ spec:
               name: database-configmap
               key: database
       restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: webapp-service
-  namespace: webproject
-  labels:
-    app: webapp
-spec:
-  selector:
-    app: webapp
-  type: NodePort
-  ports:
-    - name: 5000-tcp
-      protocol: TCP
-      port: 5000
-      targetPort: 5000
-      nodePort: 30008
----
-apiVersion: v1
-kind: Route
-metadata:
-  name: webapp-route
-  namespace: webproject
-  labels:
-    app: webapp
-spec:
-  host: webapp-name-webproject.apps.shared-na4.na4.openshift.opentlc.com
-  to:
-    kind: Service
-    name: webapp-service
-    weight: 100
-  port:
-    targetPort: 5000-tcp
-  wildcardPolicy: None
+
+

@@ -1,16 +1,15 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: webapp
+  name: webapp-autoscale
   namespace: webproject
   labels:
     app: webapp
-    deploymentconfig: webapp
 spec:
   scaleTargetRef:
     apiVersion: apps/v1 
     kind: Deployment 
-    name: webapp
+    name: webapp-deployment
   minReplicas: 1 
   maxReplicas: 5 
   metrics:

@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: database-configmap
   namespace: webproject
+  labels:
+    app: webapp
 data:
   database_instance: mysql
   database: blog

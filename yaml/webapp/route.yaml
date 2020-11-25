@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: webapp-route
+  namespace: webproject
+  labels:
+    app: webapp
+spec:
+  host: webapp-name-webproject.apps.shared-na4.na4.openshift.opentlc.com
+  to:
+    kind: Service
+    name: webapp-service
+    weight: 100
+  port:
+    targetPort: 5000-tcp
+  wildcardPolicy: None

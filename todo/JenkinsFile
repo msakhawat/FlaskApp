@@ -37,7 +37,7 @@ pipeline {
         {
             steps{
                 echo "oc login -u ${OC_USERNAME} -p ${OC_PASSWORD}"
-                echo "oc rollout restart deployment.v1.apps/${params.DEPLOYMENT_NAME}"
+                echo "oc rollout restart deploy/${params.DEPLOYMENT_NAME}"
             }
         }
     }

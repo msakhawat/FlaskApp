@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+  namespace: webproject
+  labels:
+    app: webapp
+spec:
+  selector:
+    app: webapp
+  ports:
+    - name: 5000-tcp
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
